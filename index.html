@@ -39,6 +39,46 @@
             color: #667eea;
             text-decoration: none;
         }
+.demo-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.demo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.demo-card h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.demo-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.demo-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.demo-link:hover {
+    background: #5a67d8;
+}
     </style>
 </head>
 <body>
@@ -49,8 +89,13 @@
 
     <div class="section">
         <h2>可视化案例</h2>
-        <p>案例展示区域，持续更新中...</p>
-        <!-- 后续在这里添加具体案例链接 -->
+         <div class="demo-card">
+        <h3>📊 基础图表演示</h3>
+        <p>柱状图、折线图、饼图、雷达图等基础可视化类型，使用Chart.js实现。</p>
+        <a href="demos/01-basic-charts/" class="demo-link">查看演示 →</a>
+    </div>
+    
+    <p style="margin-top: 20px; color: #666;">更多案例持续更新中...</p>
     </div>
 
     <div class="section resources">
