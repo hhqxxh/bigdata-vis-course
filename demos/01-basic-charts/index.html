@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础图表演示 - 大数据可视化</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .chart-container {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>基础图表演示</h1>
+        <p>Basic Chart Visualizations using Chart.js</p>
+    </div>
+
+    <!-- 柱状图 -->
+    <div class="chart-container">
+        <div class="chart-title">📊 柱状图 - 2024年各季度卫星发射数量</div>
+        <div class="chart-wrapper">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 折线图 -->
+    <div class="chart-container">
+        <div class="chart-title">📈 折线图 - 在轨卫星数量变化趋势</div>
+        <div class="chart-wrapper">
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 饼图 -->
+    <div class="chart-container">
+        <div class="chart-title">🥧 饼图 - 不同类型卫星占比</div>
+        <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 雷达图 -->
+    <div class="chart-container">
+        <div class="chart-title">🎯 雷达图 - 可视化技术能力评估</div>
+        <div class="chart-wrapper">
+            <canvas id="radarChart"></canvas>
+        </div>
+    </div>
+
+    <a href="../../" class="back-link">← 返回课程主页</a>
+
+    <script>
+        // 柱状图
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: '卫星发射数量',
+                    data: [12, 19, 15, 25],
+                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '数量（颗）'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 折线图
+        new Chart(document.getElementById('lineChart'), {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '在轨卫星数量',
+                    data: [1200, 1250, 1300, 1380, 1450, 1520],
+                    borderColor: 'rgba(118, 75, 162, 1)',
+                    backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: '数量（颗）'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 饼图
+        new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: {
+                labels: ['通信卫星', '导航卫星', '遥感卫星', '科学实验卫星', '其他'],
+                datasets: [{
+                    data: [45, 20, 18, 12, 5],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(237, 100, 166, 0.8)',
+                        'rgba(255, 154, 158, 0.8)',
+                        'rgba(250, 208, 196, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 雷达图
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['数据处理', '交互设计', '视觉编码', '性能优化', '用户体验', '可扩展性'],
+                datasets: [{
+                    label: 'Chart.js',
+                    data: [85, 90, 95, 80, 88, 82],
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    pointBackgroundColor: 'rgba(102, 126, 234, 1)'
+                }, {
+                    label: 'D3.js',
+                    data: [95, 85, 100, 90, 80, 95],
+                    borderColor: 'rgba(118, 75, 162, 1)',
+                    backgroundColor: 'rgba(118, 75, 162, 0.2)',
+                    pointBackgroundColor: 'rgba(118, 75, 162, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
