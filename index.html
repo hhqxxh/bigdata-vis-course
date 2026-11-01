@@ -3,108 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大数据可视化原理与应用</title>
+    <title>大数据可视化原理与应用 | 探索数据宇宙</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        :root {
+            --deep-space: #0a0e27;
+            --nebula-purple: #667eea;
+            --starlight: #f093fb;
+            --cosmic-blue: #4facfe;
+            --galaxy-pink: #f5576c;
+            --orbit-silver: #e0e7ff;
+            --satellite-gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: var(--deep-space);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(2px 2px at 20% 30%, white, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 60% 70%, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50% 50%, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80% 10%, white, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90% 60%, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 33% 80%, white, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 15% 60%, white, rgba(0,0,0,0));
+            background-size: 200% 200%;
+            animation: twinkle 20s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* 星云背景 */
+        .nebula {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at top, rgba(102, 126, 234, 0.3), transparent),
+                radial-gradient(ellipse at bottom, rgba(245, 87, 108, 0.2), transparent);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 头部设计 */
         .header {
             text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3), transparent);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cosmic-blue), var(--starlight), var(--galaxy-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: var(--orbit-silver);
+            font-weight: 300;
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header .tagline {
+            margin-top: 20px;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 轨道装饰 */
+        .orbit-decoration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rotate 30s linear infinite;
+        }
+
+        .orbit-decoration::before,
+        .orbit-decoration::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--satellite-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--satellite-gold);
+        }
+
+        .orbit-decoration::before {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .orbit-decoration::after {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* 章节标题 */
+        .section-title {
+            font-size: 2.5em;
+            margin: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '✦';
+            color: var(--satellite-gold);
+            margin: 0 20px;
+            font-size: 0.8em;
+        }
+
+        /* 案例卡片容器 */
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        /* 案例卡片 */
+        .demo-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             padding: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .demo-card:hover::before {
+            left: 100%;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .demo-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+        }
+
+        .demo-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--cosmic-blue), var(--starlight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+        }
+
+        .demo-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: var(--orbit-silver);
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--galaxy-pink));
             color: white;
-            border-radius: 10px;
-            margin-bottom: 40px;
-        }
-        .section {
-            background: white;
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .resources ul {
-            list-style: none;
-            padding: 0;
-        }
-        .resources li {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .resources a {
-            color: #667eea;
             text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-.demo-card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    padding: 25px;
-    margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
 
-.demo-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
+        .demo-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
 
-.demo-card h3 {
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
+        .demo-link::after {
+            content: '→';
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
 
-.demo-card p {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
+        .demo-link:hover::after {
+            transform: translateX(5px);
+        }
 
-.demo-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #667eea;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.2s;
-}
+        /* 资源部分 */
+        .resources {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+        }
 
-.demo-link:hover {
-    background: #5a67d8;
-}
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .resource-item {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cosmic-blue), var(--starlight), var(--galaxy-pink));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .resource-item h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--orbit-silver);
+        }
+
+        .resource-item p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .resource-link {
+            color: var(--cosmic-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: var(--starlight);
+            transform: translateX(5px);
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer .orbit-line {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--satellite-gold), transparent);
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .footer .orbit-line::before,
+        .footer .orbit-line::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--satellite-gold);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .footer .orbit-line::before {
+            left: 0;
+        }
+
+        .footer .orbit-line::after {
+            right: 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .demos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-card,
+        .resource-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .demo-card:nth-child(1) { animation-delay: 0.1s; }
+        .demo-card:nth-child(2) { animation-delay: 0.2s; }
+        .demo-card:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>大数据可视化原理与应用</h1>
-        <p>Big Data Visualization: Principles and Applications</p>
-    </div>
+    <div class="stars"></div>
+    <div class="nebula"></div>
 
-    <div class="section">
-        <h2>可视化案例</h2>
-         <div class="demo-card">
-        <h3>📊 基础图表演示</h3>
-        <p>柱状图、折线图、饼图、雷达图等基础可视化类型，使用Chart.js实现。</p>
-        <a href="demos/01-basic-charts/" class="demo-link">查看演示 →</a>
-    </div>
-    
-    <p style="margin-top: 20px; color: #666;">更多案例持续更新中...</p>
-    </div>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="orbit-decoration"></div>
+            <h1>大数据可视化原理与应用</h1>
+            <div class="subtitle">Big Data Visualization</div>
+            <div class="tagline">探索数据宇宙 · 可视化星辰大海</div>
+        </div>
 
-    <div class="section resources">
-        <h2>课程资源</h2>
-        <ul>
-            <li><a href="data/">📁 课程数据集</a> - 公开数据集下载和使用说明</li>
-            <li><a href="code/">💻 示例代码</a> - Python、JavaScript等可视化代码示例</li>
-            <li><a href="docs/">📚 课程文档</a> - 课件、教程、作业说明</li>
-        </ul>
+        <!-- 可视化案例 -->
+        <h2 class="section-title">可视化案例</h2>
+        
+        <div class="demos-grid">
+            <!-- 基础图表 -->
+            <div class="demo-card">
+                <span class="demo-icon">📊</span>
+                <h3>基础图表演示</h3>
+                <p>柱状图、折线图、饼图、雷达图等基础可视化类型，掌握数据可视化的基本方法与技巧。</p>
+                <div class="demo-tags">
+                    <span class="tag">Chart.js</span>
+                    <span class="tag">柱状图</span>
+                    <span class="tag">折线图</span>
+                    <span class="tag">饼图</span>
+                </div>
+                <a href="demos/01-basic-charts/" class="demo-link">查看演示</a>
+            </div>
+
+            <!-- 更多案例占位 -->
+            <div class="demo-card" style="opacity: 0.6;">
+                <span class="demo-icon">🗺️</span>
+                <h3>地图可视化</h3>
+                <p>地理空间数据可视化，包括热力图、标记图、区域图等。即将推出...</p>
+                <div class="demo-tags">
+                    <span class="tag">Leaflet</span>
+                    <span class="tag">ECharts</span>
+                    <span class="tag">地图</span>
+                </div>
+                <a href="#" class="demo-link" style="pointer-events: none; opacity: 0.5;">敬请期待</a>
+            </div>
+
+            <div class="demo-card" style="opacity: 0.6;">
+                <span class="demo-icon">🛰️</span>
+                <h3>3D轨道可视化</h3>
+                <p>卫星轨道、空间态势感知数据的三维可视化展示。即将推出...</p>
+                <div class="demo-tags">
+                    <span class="tag">CesiumJS</span>
+                    <span class="tag">3D</span>
+                    <span class="tag">轨道</span>
+                </div>
+                <a href="#" class="demo-link" style="pointer-events: none; opacity: 0.5;">敬请期待</a>
+            </div>
+        </div>
+
+        <!-- 课程资源 -->
+        <div class="resources">
+            <h2 class="section-title" style="margin-top: 0;">课程资源</h2>
+            
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <div class="resource-icon">📁</div>
+                    <h3>课程数据集</h3>
+                    <p>公开数据集下载和使用说明，包含多个领域的真实数据。</p>
+                    <a href="data/" class="resource-link">浏览数据集 →</a>
+                </div>
+
+                <div class="resource-item">
+                    <div class="resource-icon">💻</div>
+                    <h3>示例代码</h3>
+                    <p>Python、JavaScript等可视化代码示例，可直接运行学习。</p>
+                    <a href="code/" class="resource-link">查看代码 →</a>
+                </div>
+
+                <div class="resource-item">
+                    <div class="resource-icon">📚</div>
+                    <h3>课程文档</h3>
+                    <p>课件、教程、作业说明等教学资源，助力课程学习。</p>
+                    <a href="docs/" class="resource-link">阅读文档 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <div class="orbit-line"></div>
+            <p>© 2026 大数据可视化原理与应用课程</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">探索数据之美 · 可视化无限可能</p>
+        </div>
     </div>
 </body>
 </html>
